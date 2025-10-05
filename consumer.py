@@ -27,7 +27,7 @@ def connect():
 def main():
     parser = argparse.ArgumentParser(description="RabbitMQ Consumer")
     parser.add_argument("--queue", default="test_queue", help="Queue name to consume from")
-    parser.add_argument("--count", type=int, default=10000, help="How many messages to consume before exiting")
+    parser.add_argument("--count", type=int, default=1_000_000, help="How many messages to consume before exiting")
     args = parser.parse_args()
 
     os.makedirs("results", exist_ok=True)
@@ -56,7 +56,7 @@ def main():
             ch_.basic_ack(delivery_tag=method.delivery_tag)
 
             # Progress output every 1000 messages
-            if consumed % 1000 == 0:
+            if consumed % 50_000 == 0:
                 print(f"[{datetime.utcnow().isoformat()}Z] Consumed: {consumed}")
 
             # Stop after reaching the requested count

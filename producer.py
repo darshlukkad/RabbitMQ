@@ -27,7 +27,7 @@ def connect():
 def main():
     parser = argparse.ArgumentParser(description="RabbitMQ Producer (transactional)")
     parser.add_argument("--queue", default="test_queue", help="Queue name to publish to")
-    parser.add_argument("--count", type=int, default=10000, help="How many messages to publish")
+    parser.add_argument("--count", type=int, default=1_000_000, help="How many messages to publish")
     parser.add_argument("--batch", type=int, default=1000, help="Commit every N messages (AMQP tx)")
     args = parser.parse_args()
 
@@ -43,7 +43,7 @@ def main():
         ch = conn.channel()
 
         # Ensure the queue exists and is durable
-        ch.queue_declare(queue=args.queue, durable=True)
+        ch.queue_declare(queue=args.queue, durable=True, arguments={})
 
         # Enable AMQP transactions
         ch.tx_select()
@@ -71,7 +71,7 @@ def main():
             published += 1
             batch_count += 1
 
-            if published % 1000 == 0:
+            if published % 50_000 == 0:
                 print(f"[{datetime.utcnow().isoformat()}Z] Published: {published}")
 
             if batch_count >= args.batch:
