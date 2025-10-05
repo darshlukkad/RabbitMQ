@@ -1,0 +1,15 @@
+{
+  "queue": "test_queue",
+  "published": 10000,
+  "elapsed_seconds": 7.213374137878418,
+  "host": "localhost",
+  "consumed": 10000,
+  "queue_stats": {
+    "name": "test_queue",
+    "vhost": "/",
+    "messages": 0,
+    "messages_ready": 0,
+    "messages_unacknowledged": 0,
+    "consumers": 0
+  }
+}

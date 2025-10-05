@@ -1,0 +1,6 @@
+{
+  "queue": "test_queue",
+  "consumed": 10000,
+  "elapsed_seconds": 7.213374137878418,
+  "host": "localhost"
+}
